@@ -819,7 +819,7 @@
 <nav>
   <a href="#" class="nav-logo">Hudson <span>Powers</span></a>
   <ul class="nav-links">
-    <li><a href="#markets">Markets</a></li>
+    <li><a href="#markets">2026 Numbers</a></li>
     <li><a href="#tips">By Generation</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#about">About</a></li>
@@ -871,36 +871,56 @@
 
 <div class="gold-divider"></div>
 
-<!-- MARKETS -->
+<!-- KEY NUMBERS -->
 <section class="markets-section" id="markets">
   <div class="markets-inner">
     <div class="markets-header">
       <div class="markets-title">
         <div class="live-dot"></div>
-        Markets at a glance
+        2026 Key Numbers
       </div>
-      <div class="markets-updated" id="markets-time">Loading...</div>
+      <div class="markets-updated">Updated for tax year 2026</div>
     </div>
     <div class="markets-grid">
       <div class="market-card">
-        <div class="market-name">S&P 500</div>
-        <div class="market-price" id="sp500-price"><span class="market-loading">—</span></div>
-        <div class="market-change neutral" id="sp500-change">Loading...</div>
+        <div class="market-name">Roth / Traditional IRA</div>
+        <div class="market-price">$7,500</div>
+        <div class="market-change neutral">$8,600 if age 50+ · Income limit $252K married</div>
       </div>
       <div class="market-card">
-        <div class="market-name">VOO (ETF)</div>
-        <div class="market-price" id="voo-price"><span class="market-loading">—</span></div>
-        <div class="market-change neutral" id="voo-change">Loading...</div>
+        <div class="market-name">401k Contribution</div>
+        <div class="market-price">$24,500</div>
+        <div class="market-change neutral">$32,500 if age 50+ · $35,750 if age 60–63</div>
       </div>
       <div class="market-card">
-        <div class="market-name">Gold (oz)</div>
-        <div class="market-price" id="gold-price"><span class="market-loading">—</span></div>
-        <div class="market-change neutral" id="gold-change">Loading...</div>
+        <div class="market-name">SEP IRA Limit</div>
+        <div class="market-price">$72,000</div>
+        <div class="market-change neutral">Or 25% of compensation — whichever is less</div>
       </div>
       <div class="market-card">
-        <div class="market-name">10-Yr Treasury</div>
-        <div class="market-price" id="treasury-price"><span class="market-loading">—</span></div>
-        <div class="market-change neutral" id="treasury-change">Loading...</div>
+        <div class="market-name">Annual Gift Exclusion</div>
+        <div class="market-price">$19,000</div>
+        <div class="market-change neutral">$38,000 per recipient for married couples</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">Estate Tax Exemption</div>
+        <div class="market-price">$15M</div>
+        <div class="market-change neutral">$30M married · 40% tax rate above exemption</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">529 Superfunding</div>
+        <div class="market-price">$95,000</div>
+        <div class="market-change neutral">5 years at once per beneficiary · $190K married</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">Long-Term Cap Gains</div>
+        <div class="market-price">0 / 15 / 20%</div>
+        <div class="market-change neutral">0% under $98,900 married · 20% over $583,750</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">Standard Deduction</div>
+        <div class="market-price">$30,000</div>
+        <div class="market-change neutral">Married filing jointly · $15,000 single</div>
       </div>
     </div>
   </div>
@@ -1011,7 +1031,7 @@
 <!-- BLOG -->
 <section class="blog-section" id="blog">
   <div class="blog-inner">
-    <div class="section-eyebrow" style="margin-bottom: 0.75rem;">Weekly posts</div>
+    <div class="section-eyebrow" style="margin-bottom: 0.75rem;">Monthly posts</div>
     <h2 class="section-title">Things worth understanding</h2>
     <p class="section-sub">No textbook language. Just concepts that actually matter — explained the way I wish someone had explained them to me.</p>
 
@@ -1099,7 +1119,7 @@
   <div class="footer-logo">Hudson <span>Powers</span></div>
   <p class="footer-tagline">Personal finance for every generation</p>
   <ul class="footer-links">
-    <li><a href="#markets">Markets</a></li>
+    <li><a href="#markets">2026 Numbers</a></li>
     <li><a href="#tips">By Generation</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#about">About</a></li>
@@ -1230,43 +1250,14 @@ async function loadMarkets() {
   const now = new Date();
   document.getElementById('markets-time').textContent = 'Updated ' + now.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
 
-  const cards = [
-    { id: 'sp500', label: 'S&P 500', url: 'https://query2.finance.yahoo.com/v8/finance/chart/SPY' },
-    { id: 'voo',   label: 'VOO',     url: 'https://query2.finance.yahoo.com/v8/finance/chart/VOO' },
-    { id: 'gold',  label: 'Gold',    url: 'https://query2.finance.yahoo.com/v8/finance/chart/GLD' },
-    { id: 'treasury', label: '10-Yr Treasury', url: 'https://query2.finance.yahoo.com/v8/finance/chart/TLT' }
+  const key = 'ZTQ8XHLD90MZS9D6';
+  const tickers = [
+    { id: 'sp500',    symbol: 'SPY',  label: 'S&P 500 (SPY)' },
+    { id: 'voo',      symbol: 'VOO',  label: 'VOO' },
+    { id: 'gold',     symbol: 'GLD',  label: 'Gold (GLD)' },
+    { id: 'treasury', symbol: 'TLT',  label: '10-Yr Treasury (TLT)' }
   ];
-
-  const proxy = 'https://api.allorigins.win/raw?url=';
-
-  for (const c of cards) {
-    try {
-      const res = await fetch(proxy + encodeURIComponent(c.url + '?interval=1d&range=5d'));
-      const data = await res.json();
-      const meta = data.chart.result[0].meta;
-      const price = meta.regularMarketPrice;
-      const prev = meta.chartPreviousClose;
-      const change = price - prev;
-      const pct = (change / prev) * 100;
-      const up = change >= 0;
-
-      document.getElementById(`${c.id}-price`).textContent = '$' + price.toFixed(2);
-      const el = document.getElementById(`${c.id}-change`);
-      el.textContent = `${up ? '▲' : '▼'} ${Math.abs(change).toFixed(2)} (${Math.abs(pct).toFixed(2)}%)`;
-      el.className = `market-change ${up ? 'up' : 'down'}`;
-    } catch(e) {
-      document.getElementById(`${c.id}-price`).textContent = '—';
-      const el = document.getElementById(`${c.id}-change`);
-      el.textContent = 'View on Google Finance ↗';
-      el.className = 'market-change neutral';
-      el.style.cursor = 'pointer';
-      const sym = c.id === 'sp500' ? 'SPY' : c.id === 'voo' ? 'VOO' : c.id === 'gold' ? 'GLD' : 'TLT';
-      el.onclick = () => window.open(`https://finance.yahoo.com/quote/${sym}`, '_blank');
-    }
-  }
 }
-
-loadMarkets();
 </script>
 </body>
 </html>
