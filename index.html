@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hudson Powers — Personal Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1F3A6E;
+    --navy-dark: #0F2040;
+    --navy-light: #2A4E8C;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --cream: #F8F5EF;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --text-muted: #6B7280;
+    --border: rgba(31,58,110,0.12);
+    --success: #2A6E4A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(248,245,239,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-text { animation: fadeUp 0.8s ease both; }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--navy-dark);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--navy-light);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 0.875rem 2rem;
+    background: var(--navy);
+    color: white;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+  .btn-secondary {
+    padding: 0.875rem 2rem;
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { background: var(--navy); color: white; }
+
+  /* HERO CARD */
+  .hero-card { animation: fadeUp 0.8s 0.2s ease both; }
+
+  .stat-card {
+    background: var(--navy-dark);
+    color: white;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.08);
+  }
+
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -20px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: rgba(42,78,140,0.3);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .stat-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-quote cite {
+    display: block;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    margin-top: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* MARKET TICKER */
+  .markets-section {
+    background: var(--navy-dark);
+    padding: 2rem 3rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .markets-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .markets-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .markets-title {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s infinite;
+  }
+
+  .markets-updated {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .markets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .market-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 1rem 1.25rem;
+    transition: background 0.2s;
+  }
+
+  .market-card:hover { background: rgba(255,255,255,0.07); }
+
+  .market-name {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.35rem;
+  }
+
+  .market-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.25rem;
+    min-height: 2rem;
+  }
+
+  .market-change {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .market-change.up { color: #4CAF50; }
+  .market-change.down { color: #EF5350; }
+  .market-change.neutral { color: rgba(255,255,255,0.4); }
+
+  .market-loading {
+    color: rgba(255,255,255,0.25);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  /* GENERATION TABS */
+  .gen-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gen-tab {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .gen-tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+  .gen-tab:hover:not(.active) { color: var(--navy); }
+
+  .gen-content { display: none; }
+  .gen-content.active { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+
+  .tip-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .tip-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(31,58,110,0.08);
+  }
+
+  .tip-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(31,58,110,0.08);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .tip-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--navy-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .tip-body {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .tip-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(31,58,110,0.06);
+    color: var(--navy);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* BLOG SECTION */
+  .blog-section {
+    padding: 6rem 3rem;
+    background: white;
+  }
+
+  .blog-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+  }
+
+  .blog-featured {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .blog-featured:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(31,58,110,0.1);
+  }
+
+  .blog-secondary { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .blog-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 1.5rem 1.75rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex: 1;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(31,58,110,0.08);
+  }
+
+  .blog-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .blog-tag::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .blog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .blog-featured .blog-title { font-size: 1.75rem; }
+
+  .blog-excerpt {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .blog-read-more {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--navy);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+
+  .blog-read-more:hover { border-bottom-color: var(--navy); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,32,64,0.85);
+    z-index: 200;
+    overflow-y: auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .modal-overlay.open { display: block; }
+
+  .modal {
+    background: var(--cream);
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--navy); }
+
+  .modal-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .modal-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.85;
+  }
+
+  .modal-body p { margin-bottom: 1.25rem; }
+
+  .modal-body strong {
+    font-weight: 500;
+    color: var(--navy-dark);
+  }
+
+  .modal-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--navy-dark);
+    margin: 2rem 0 0.75rem;
+    font-weight: 700;
+  }
+
+  .modal-callout {
+    background: rgba(31,58,110,0.06);
+    border-left: 3px solid var(--navy);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    color: var(--navy-dark);
+    font-style: italic;
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--navy-dark);
+    padding: 6rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.05);
+  }
+
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-text .section-eyebrow { color: var(--gold); }
+  .about-text .section-eyebrow::before { background: var(--gold); }
+  .about-text .section-title { color: white; }
+
+  .about-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-credentials { display: flex; flex-direction: column; gap: 1rem; }
+
+  .credential {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .credential-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .credential-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+
+  .credential-text strong {
+    color: white;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-dark);
+    padding: 3rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 0.875rem; color: rgba(255,255,255,0.4); margin-bottom: 2rem; }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+
+  .gold-divider {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 2.5rem; }
+    .section { padding: 4rem 1.5rem; }
+    .gen-content.active { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-section { padding: 4rem 1.5rem; }
+    .blog-section { padding: 4rem 1.5rem; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .markets-section { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Hudson <span>Powers</span></a>
+  <ul class="nav-links">
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#tips">By Generation</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://www.linkedin.com/in/hudson-powers" target="_blank">LinkedIn ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section style="padding: 0 3rem; max-width: 1200px; margin: 0 auto;">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Personal Finance</div>
+      <h1>Wealth isn't just for <em>the wealthy.</em></h1>
+      <p class="hero-sub">Real financial strategies — broken down by where you are in life. Whether you're 22 or 62, your money should be working as hard as you do.</p>
+      <div class="hero-cta">
+        <a href="#tips" class="btn-primary">Read by generation</a>
+        <a href="https://www.linkedin.com/in/hudson-powers" target="_blank" class="btn-secondary">Connect on LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="stat-card">
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-num">37%</div>
+            <div class="stat-label">Top tax rate — know your bracket</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">73</div>
+            <div class="stat-label">Age RMDs begin — plan ahead</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">$18K</div>
+            <div class="stat-label">Annual gift exclusion per person</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">10yr</div>
+            <div class="stat-label">QOF hold for zero capital gains</div>
+          </div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-quote">
+          "The best time to start investing was yesterday. The second best time is today."
+          <cite>— A truth every generation learns too late</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- MARKETS -->
+<section class="markets-section" id="markets">
+  <div class="markets-inner">
+    <div class="markets-header">
+      <div class="markets-title">
+        <div class="live-dot"></div>
+        Markets at a glance
+      </div>
+      <div class="markets-updated" id="markets-time">Loading...</div>
+    </div>
+    <div class="markets-grid">
+      <div class="market-card">
+        <div class="market-name">S&P 500</div>
+        <div class="market-price" id="sp500-price"><span class="market-loading">—</span></div>
+        <div class="market-change neutral" id="sp500-change">Loading...</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">VOO (ETF)</div>
+        <div class="market-price" id="voo-price"><span class="market-loading">—</span></div>
+        <div class="market-change neutral" id="voo-change">Loading...</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">Gold (oz)</div>
+        <div class="market-price" id="gold-price"><span class="market-loading">—</span></div>
+        <div class="market-change neutral" id="gold-change">Loading...</div>
+      </div>
+      <div class="market-card">
+        <div class="market-name">10-Yr Treasury</div>
+        <div class="market-price" id="treasury-price"><span class="market-loading">—</span></div>
+        <div class="market-change neutral" id="treasury-change">Loading...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- GENERATION TIPS -->
+<section class="section" id="tips">
+  <div class="section-eyebrow">By generation</div>
+  <h2 class="section-title">Where you are shapes what you should do</h2>
+  <p class="section-sub">The best financial moves at 25 are completely different from the best moves at 55. Here's what actually matters at each stage of life.</p>
+
+  <div class="gen-tabs">
+    <button class="gen-tab active" onclick="switchTab('gen20')">In Your 20s</button>
+    <button class="gen-tab" onclick="switchTab('gen30')">In Your 30s</button>
+    <button class="gen-tab" onclick="switchTab('gen40')">In Your 40s–50s</button>
+    <button class="gen-tab" onclick="switchTab('gen60')">In Your 60s+</button>
+  </div>
+
+  <div class="gen-content active" id="gen20">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Max your Roth IRA first</div>
+      <div class="tip-body">You're in the lowest tax bracket you'll ever be in. Pay taxes now at 22%, let it grow for 40 years completely tax free. $7,000/year compounding at 8% = over $1.8M by retirement.</div>
+      <span class="tip-tag">Tax Strategy</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Never leave free money on the table</div>
+      <div class="tip-body">If your employer matches 401k contributions — contribute at least enough to get the full match. It's an instant 50–100% return before a single investment is made. Nothing beats it.</div>
+      <span class="tip-tag">Retirement</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Time is your only unfair advantage</div>
+      <div class="tip-body">A 22-year-old investing $500/month will likely retire wealthier than a 32-year-old investing $1,000/month — contributing less total. Compound interest is an exponent. Start now.</div>
+      <span class="tip-tag">Investing</span>
+    </div>
+  </div>
+
+  <div class="gen-content" id="gen30">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Asset allocation is everything</div>
+      <div class="tip-body">In your 30s you can still take risk — 70–80% equities is reasonable. But start building your fixed income allocation. A 70/25/5 split of stocks, bonds, and cash is a strong foundation.</div>
+      <span class="tip-tag">Portfolio</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Don't confuse net worth with wealth</div>
+      <div class="tip-body">Your house, car, and business aren't investable assets. When planning for retirement, focus on liquid investable assets — brokerage accounts, IRAs, 401ks. Know the difference.</div>
+      <span class="tip-tag">Planning</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Tax loss harvesting starts now</div>
+      <div class="tip-body">Selling losing investments to offset gains isn't giving up — it's smart. Harvest losses throughout the year, reinvest in similar positions, and reduce your tax bill legally every December.</div>
+      <span class="tip-tag">Tax Strategy</span>
+    </div>
+  </div>
+
+  <div class="gen-content" id="gen40">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Start planning your Roth conversion ladder</div>
+      <div class="tip-body">In your peak earning years, you can't convert yet — brackets are too high. But plan for it. Every dollar in your Traditional IRA will face forced withdrawals at 73. Roth conversions in retirement fix this permanently.</div>
+      <span class="tip-tag">Retirement</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Rebalance — the market did it for you</div>
+      <div class="tip-body">After a bull run your 60/40 portfolio might be 75/25 without you doing anything. That means more risk than you agreed to. Review quarterly, rebalance when allocation drifts more than 5%.</div>
+      <span class="tip-tag">Portfolio</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Municipal bonds are your friend</div>
+      <div class="tip-body">At a high income bracket, a muni bond paying 3.8% beats a corporate bond paying 5.5% — after taxes. Always calculate tax equivalent yield before choosing fixed income. TEY = Muni Rate ÷ (1 - Tax Rate).</div>
+      <span class="tip-tag">Fixed Income</span>
+    </div>
+  </div>
+
+  <div class="gen-content" id="gen60">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Delay Social Security — it pays 8% per year</div>
+      <div class="tip-body">Every year you delay claiming past full retirement age (67), your benefit grows 8% — guaranteed. Waiting from 67 to 70 increases your monthly benefit by 24%, for life. If you're healthy, wait.</div>
+      <span class="tip-tag">Social Security</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-title">RMDs will cost you — unless you plan now</div>
+      <div class="tip-body">At 73 the IRS forces withdrawals from your Traditional IRA — taxed as ordinary income, added to your AGI, potentially triggering IRMAA Medicare surcharges. Roth conversions before 73 are the only real fix.</div>
+      <span class="tip-tag">Retirement</span>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Don't sell — borrow, then pass it on</div>
+      <div class="tip-body">Selling appreciated assets triggers capital gains. Instead, borrow against your portfolio via a pledged asset line. At death, heirs inherit at today's market value — all historical gains disappear. Buy. Borrow. Die.</div>
+      <span class="tip-tag">Estate Planning</span>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- BLOG -->
+<section class="blog-section" id="blog">
+  <div class="blog-inner">
+    <div class="section-eyebrow" style="margin-bottom: 0.75rem;">Weekly posts</div>
+    <h2 class="section-title">Things worth understanding</h2>
+    <p class="section-sub">No textbook language. Just concepts that actually matter — explained the way I wish someone had explained them to me.</p>
+
+    <div class="blog-grid">
+      <div class="blog-featured" onclick="openPost(0)">
+        <div class="blog-tag">Tax Strategy</div>
+        <div class="blog-title">The 12-Month Rule That Could Save You Thousands</div>
+        <div class="blog-excerpt">Most people don't realize there's a single date that determines whether the IRS takes 37 cents or 20 cents on every dollar of investment profit you make. That date is exactly 12 months and one day after you buy.</div>
+        <div class="blog-meta">
+          <span>Hudson Powers</span>
+          <span>·</span>
+          <span>5 min read</span>
+          <span>·</span>
+          <span>May 2026</span>
+        </div>
+        <a class="blog-read-more">Read post →</a>
+      </div>
+
+      <div class="blog-secondary">
+        <div class="blog-card" onclick="openPost(1)">
+          <div class="blog-tag">Tax Strategy</div>
+          <div class="blog-title">Tax Loss Harvesting: Turning Losers Into Winners</div>
+          <div class="blog-excerpt">Your losing investments aren't just dead weight — they're a tax tool. Here's how to use them strategically.</div>
+          <div class="blog-meta"><span>4 min read</span><span>·</span><span>April 2026</span></div>
+          <a class="blog-read-more">Read post →</a>
+        </div>
+        <div class="blog-card" onclick="openPost(2)">
+          <div class="blog-tag">Retirement</div>
+          <div class="blog-title">Why the IRS Forces You to Withdraw Money at 73</div>
+          <div class="blog-excerpt">Required Minimum Distributions — and why a Roth conversion in your 60s might be the most important financial move you make.</div>
+          <div class="blog-meta"><span>5 min read</span><span>·</span><span>March 2026</span></div>
+          <a class="blog-read-more">Read post →</a>
+        </div>
+        <div class="blog-card" onclick="openPost(3)">
+          <div class="blog-tag">Estate Planning</div>
+          <div class="blog-title">Buy. Borrow. Die. The Strategy the Wealthy Actually Use.</div>
+          <div class="blog-excerpt">The richest families in America rarely sell their investments. Here's the three-word strategy behind why — and how it legally eliminates capital gains forever.</div>
+          <div class="blog-meta"><span>4 min read</span><span>·</span><span>February 2026</span></div>
+          <a class="blog-read-more">Read post →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="section-eyebrow">About Hudson</div>
+      <h2 class="section-title" style="color: white;">Finance shouldn't require a finance degree to understand</h2>
+      <p class="about-body">I'm a Georgia native studying finance and preparing for a career in wealth management. I created this site because I kept noticing the same thing — the most powerful financial strategies are reserved for people who already have advisors. That's backwards.</p>
+      <p class="about-body">Everything here is what I'm learning, simplified. No jargon. No product pitches. Just the concepts that actually move the needle for real people at every stage of life.</p>
+      <a href="https://www.linkedin.com/in/hudson-powers" target="_blank" class="btn-primary" style="margin-top: 0.5rem; display: inline-block;">Connect on LinkedIn ↗</a>
+    </div>
+    <div class="about-credentials">
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <div class="credential-text">
+          <strong>University of Georgia '27</strong>
+          B.B.A. Marketing — with a concentration in business strategy and consumer behavior
+        </div>
+      </div>
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <div class="credential-text">
+          <strong>M.S. Financial Planning — UGA, Jan–Dec 2027</strong>
+          Pursuing a graduate degree in Financial Planning to deepen expertise in tax strategy, estate planning, and retirement income
+        </div>
+      </div>
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <div class="credential-text">
+          <strong>Incoming Wealth Management Analyst — Summer 2027</strong>
+          Joining a major financial institution to work directly with advisors serving high net worth clients
+        </div>
+      </div>
+      <div class="credential">
+        <div class="credential-dot"></div>
+        <div class="credential-text">
+          <strong>Based in Georgia</strong>
+          Writing for every generation — from first paycheck to legacy planning
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Hudson <span>Powers</span></div>
+  <p class="footer-tagline">Personal finance for every generation</p>
+  <ul class="footer-links">
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#tips">By Generation</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://www.linkedin.com/in/hudson-powers" target="_blank">LinkedIn</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Hudson Powers · For educational purposes only — not financial advice.</p>
+</footer>
+
+<!-- BLOG MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closePostOutside(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closePost()">✕</button>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+
+<script>
+const posts = [
+  {
+    tag: "Tax Strategy",
+    title: "The 12-Month Rule That Could Save You Thousands",
+    meta: "Hudson Powers · 4 min read · May 2026",
+    body: `
+      <p>One single figure determines how much of your profit from investments will actually stay yours. It is twelve (12) – in months. Whether you have been invested for more than or for less than 12 months + one day defines whether you are in possession of long-term gains or short-term gains according to the IRS. The difference can be quite significant.</p>
+
+      <p>The short-term gains fall under the category of ordinary income. For the majority of wage earners this range starts at 22% and finishes at 37%. Long-term gains can only be taxed up to a maximum of 20%, but often they come at 15% or are completely tax-free.</p>
+
+      <div class="modal-callout">On a $100,000 gain the difference between short-term and long-term treatment could be $17,000 or more. Just from waiting a few extra months.</div>
+
+      <p>Say you buy some shares in February and the price went up $50,000. It's November now, and you've already kept them around nine months. Most would sell at once. But you have enough time to wait out till February and get your hands on long-term status. In terms of $50,000 this means you pay $8,500 of taxes, not $18,500. $10,000 saved from just being patient.</p>
+
+      <p>For higher earners there is also the Net Investment Income Tax — an extra 3.8% on top of capital gains for people making over $200,000 individually or $250,000 married. So the real long-term rate for a lot of high income investors is closer to 23.8%. Still way better than 37% but worth knowing the full picture. Good advisors track holding periods on every position and flag when you are getting close to that 12-month mark. It is not glamorous stuff but over a lifetime it adds up to a lot of money. The 12-month rule costs nothing to use. You just have to know it exists.</p>
+    `
+  },
+  {
+    tag: "Tax Strategy",
+    title: "Tax Loss Harvesting: Turning Losers Into Winners",
+    meta: "Hudson Powers · 4 min read · April 2026",
+    body: `
+      <p>There will come a time when every investor will find himself or herself holding a security that is underwater. This could be an ETF that got clobbered or a stock or bond purchased at the wrong time. Usually, most investors will hang onto their positions hoping they turn around or they will simply sell and walk away. But there is yet another alternative.</p>
+
+      <p>The technique is referred to as tax-loss harvesting where one sells the underperforming security in order to realize a loss that is used to offset other gains in his or her investment portfolio. Consider this hypothetical situation. You had sold a stock previously during the year and made a profit of $60,000. Assuming a tax rate of 20%, your tax obligation would be $12,000. However, you hold a tech ETF which you bought for $80,000 but which is worth just $40,000 now. If you sell this ETF prior to the end of the year, you can use the $40,000 loss to reduce your $60,000 gain to $20,000. This means a reduction of your tax obligation from $12,000 to $4,000. Your savings are $8,000.</p>
+
+      <div class="modal-callout">You need to invest in a similar but not identical security to maintain market exposure. Selling without reinvesting defeats the purpose entirely.</div>
+
+      <p>However, you must be careful about the timing. Moreover, you cannot buy back the same security within 30 days of selling it. If you do, you will run afoul of the wash sale rules of the Internal Revenue Service. You need to reinvest into an identical yet not-the-same investment. For instance, if you sold a tech ETF, you must invest in another tech ETF. What if the losses exceed your gains? You can reduce your other taxable income by up to $3,000 per year. Any remaining losses carry forward indefinitely to future years where they can offset future gains — think of it like a tax coupon you save for later.</p>
+    `
+  },
+  {
+    tag: "Retirement",
+    title: "Why the IRS Forces You to Withdraw Money at 73",
+    meta: "Hudson Powers · 5 min read · March 2026",
+    body: `
+      <p>Unfortunately, this realization comes much later for most people — you cannot just keep your money in a Traditional IRA or 401k indefinitely. The US government will force you to take money from these accounts regardless of your needs starting at the age of 73. This process is called a Required Minimum Distribution or an RMD and surprises many retirees.</p>
+
+      <p>The rationale behind such a requirement is quite simple: Traditional IRAs and 401ks are made of pre-tax money. In other words, no federal income tax was ever paid on that money. Thus, it can be deducted from the taxable income in the future. RMDs are the way for the IRS to collect that income tax. The formula to calculate the amount of your required distribution is your account balance divided by your life expectancy factor.</p>
+
+      <div class="modal-callout">At age 73 with a $1,000,000 IRA, your first RMD is roughly $37,736. That entire amount gets added to your taxable income for the year.</div>
+
+      <p>It is not the required minimum distribution itself that poses an issue but rather how it impacts the retiree. RMDs are taken out in addition to Social Security payments, pensions, dividend income, and other retirement income. This can lead to entering a higher income bracket, make up to 85% of Social Security taxable, and create additional Medicare surcharges known as IRMAA. Many people retiring assume that they will have relatively little income and find themselves facing similar income levels compared to when they were actively employed.</p>
+
+      <p>To solve the issue one must use the concept of Roth conversions. Prior to age 73, an individual may transfer funds from a Traditional IRA to a Roth IRA while paying taxes on the amount withdrawn at a lower rate. A Roth IRA is not subject to RMDs. Money accumulated within a Roth account grows tax-free and may be withdrawn any time without penalties. The best way to perform such conversions is immediately after retiring, as it allows paying lower taxes at the time of the lowest income bracket level. If someone retired at 65, they have eight years to maximize conversions before RMDs kick in — and using that window smartly can save hundreds of thousands of dollars.</p>
+    `
+  },
+  {
+    tag: "Estate Planning",
+    title: "Buy. Borrow. Die. The Strategy the Wealthy Actually Use.",
+    meta: "Hudson Powers · 4 min read · February 2026",
+    body: `
+      <p>If you have ever puzzled about how some of the richest men and women in the nation can avoid paying much in capital gains taxes despite their enormous holdings in investments, the answer is found in three words. Buy. Borrow. Die. And believe it or not, it is perfectly legal and has been practiced by the rich for many years.</p>
+
+      <p>Buy. You invest in rising assets — stocks, mutual funds, and real estate — and keep them. You never sell them. By not selling them, you keep what the Internal Revenue Service defines as an unrealized gain, which is not taxed. That stock you acquired for $50,000 which is now worth $500,000 has generated $450,000 in value for you, but unless you sell, you have not paid any tax yet.</p>
+
+      <div class="modal-callout">Selling a stock triggers a tax event. Borrowing against it does not. Same cash in your pocket — very different outcome.</div>
+
+      <p>Borrow. You do not have to sell your investments when you need some cash. Major banks and financial firms provide something called a pledged asset line of credit, which means that your investments are used as collateral for a loan at a very favorable interest rate. Your investments remain untouched and will continue earning. And this is the important part — loans do not generate income. Hence, no capital gains tax on the borrowed amount.</p>
+
+      <p>Die. The moment you die, all your investments pass to your heirs at their current market value — regardless of the price at which you originally bought them. This is called the stepped-up basis. All your lifetime gains become untaxed. Your heirs will receive all of your investments with zero capital gains owed. The whole process implies holding appreciated assets, borrowing against them when necessary, and passing them on to your heirs after your death without generating capital gains at all. It is not a loophole — it is just how the tax code is written.</p>
+    `
+  }
+];
+
+function openPost(index) {
+  const post = posts[index];
+  document.getElementById('modal-inner').innerHTML = `
+    <div class="modal-tag">${post.tag}</div>
+    <div class="modal-title">${post.title}</div>
+    <div class="modal-meta">${post.meta}</div>
+    <div class="modal-body">${post.body}</div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePost() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closePostOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closePost();
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.gen-tab').forEach((t, i) => {
+    t.classList.toggle('active', ['gen20','gen30','gen40','gen60'][i] === id);
+  });
+  document.querySelectorAll('.gen-content').forEach(c => {
+    c.classList.toggle('active', c.id === id);
+  });
+}
+
+async function loadMarkets() {
+  const now = new Date();
+  document.getElementById('markets-time').textContent = 'Updated ' + now.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+
+  const tickers = [
+    { id: 'sp500', symbol: 'SPY', label: 'S&P 500 (SPY)' },
+    { id: 'voo', symbol: 'VOO', label: 'VOO' },
+    { id: 'gold', symbol: 'GLD', label: 'Gold (GLD)' },
+    { id: 'treasury', symbol: 'TLT', label: '10-Yr Treasury (TLT)' }
+  ];
+
+  for (const t of tickers) {
+    try {
+      const res = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${t.symbol}?interval=1d&range=5d&cors=true`, {
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) throw new Error('fetch failed');
+      const data = await res.json();
+      const meta = data.chart.result[0].meta;
+      const price = meta.regularMarketPrice;
+      const prev = meta.chartPreviousClose;
+      const change = price - prev;
+      const pct = (change / prev) * 100;
+      const up = change >= 0;
+
+      document.getElementById(`${t.id}-price`).textContent = '$' + price.toFixed(2);
+      const el = document.getElementById(`${t.id}-change`);
+      el.textContent = `${up ? '▲' : '▼'} ${Math.abs(change).toFixed(2)} (${Math.abs(pct).toFixed(2)}%)`;
+      el.className = `market-change ${up ? 'up' : 'down'}`;
+    } catch(e) {
+      document.getElementById(`${t.id}-price`).textContent = '—';
+      const el = document.getElementById(`${t.id}-change`);
+      el.textContent = 'See Google Finance';
+      el.className = 'market-change neutral';
+      el.style.cursor = 'pointer';
+      el.onclick = () => window.open(`https://www.google.com/finance/quote/${t.symbol}:NYSEARCA`, '_blank');
+    }
+  }
+}
+
+loadMarkets();
+</script>
+</body>
+</html>
